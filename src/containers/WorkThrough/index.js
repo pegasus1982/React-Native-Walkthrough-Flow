@@ -10,10 +10,7 @@ export default class WorkThrough extends Component{
         this.state = {
         }
     }
-    // _onLayoutDidChange = (e) => {
-    //     const layout = e.nativeEvent.layout;
-    //     this.setState({ size: { width: layout.width, height: layout.height } });
-    // }
+
     render(){
         const { bgColor , fgColor, screens } = this.props.data;
 
@@ -35,8 +32,6 @@ export default class WorkThrough extends Component{
                 >
                 {
                     screens.map((item,i)=>{
-                        let imagePath = '../../assets/images/home.png';
-                        item.image = require(imagePath);
                         return(
                             <FlowItem
                                 key={i}

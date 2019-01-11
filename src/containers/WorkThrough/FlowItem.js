@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import {View, Image, Text, StyleSheet } from 'react-native';
-
+import { icons } from '@assets';
 export default class FlowItem extends Component{
     render(){
         const {icon,image, title,description} = this.props.data;
@@ -8,7 +8,7 @@ export default class FlowItem extends Component{
         return(
             <View style={style}>
                 <View style={styles.container}>
-                    <Image source={image} style={styles.icon}/>
+                    <Image source={icons[icon]} style={styles.icon}/>
                     <Text style={[textColor, styles.title]}>{title}</Text>
                     <Text style={[textColor, styles.description]}>{description}</Text>
                 </View>
