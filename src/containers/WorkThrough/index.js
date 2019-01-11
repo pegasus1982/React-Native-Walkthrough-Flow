@@ -4,13 +4,27 @@ import Carousel from 'react-native-looped-carousel';
 
 import FlowItem from './FlowItem';
 
+
 export default class WorkThrough extends Component{
     constructor(props){
         super(props);
         this.state = {
+            next : 0,
         }
     }
 
+    _onAnimNextPage = (p) => {
+        const { screens } = this.props.data;
+        let current = this.state.next;
+
+        if(parseInt(current) == (screens.length - 1) && parseInt(p) == 0)
+        {
+            this.props.onFinished();
+        }
+        else{
+            this.setState({next : p})
+        }
+    }
     render(){
         const { bgColor , fgColor, screens } = this.props.data;
 
@@ -22,13 +36,19 @@ export default class WorkThrough extends Component{
         const textColorStyle = {
             color : fgColor
         }
+
+        const { iconpackage } = this.props;
+
+        const { next } = this.state;
         return(
             <View style={[styles.container,backgroundStyle]}>
+            <Text>{next}</Text>
             <Carousel
-                delay={3000}
+                delay={4000}
                 style={styles.carousel}
                 bullets = {true}
-                autoplay
+                // autoplay = { false }
+                onAnimateNextPage={this._onAnimNextPage}
                 >
                 {
                     screens.map((item,i)=>{
@@ -37,7 +57,8 @@ export default class WorkThrough extends Component{
                                 key={i}
                                 style={styles.flowItem}
                                 textColor = {textColorStyle}
-                                data={item}/>
+                                data={item}
+                                iconpackage = {iconpackage}/>
                         )
                     })
                 }

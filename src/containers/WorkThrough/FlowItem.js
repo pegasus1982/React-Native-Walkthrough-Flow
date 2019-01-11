@@ -1,14 +1,15 @@
 import React , { Component } from 'react';
 import {View, Image, Text, StyleSheet } from 'react-native';
-import { icons } from '@assets';
+
 export default class FlowItem extends Component{
     render(){
         const {icon,image, title,description} = this.props.data;
         const {style, textColor} = this.props;
+        const { iconpackage } = this.props;
         return(
             <View style={style}>
                 <View style={styles.container}>
-                    <Image source={icons[icon]} style={styles.icon}/>
+                    <Image source={iconpackage[icon]} style={styles.icon}/>
                     <Text style={[textColor, styles.title]}>{title}</Text>
                     <Text style={[textColor, styles.description]}>{description}</Text>
                 </View>
@@ -26,8 +27,8 @@ const styles = StyleSheet.create({
         paddingRight : 30
     },
     icon : {
-        width : 120,
-        height : 120,
+        width : 100,
+        height : 100,
         marginBottom : 30
     },
     title : {
