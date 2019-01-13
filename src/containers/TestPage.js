@@ -12,6 +12,7 @@ import {StyleSheet, View, StatusBar} from 'react-native';
 import WorkThrough from 'WorkThrough';
 import {icons} from '@assets';
 
+// example data
 const flowData = {
     bgColor: "blue", 
     fgColor: "white", 
@@ -39,6 +40,9 @@ export default class TestPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    //walkthrough flow component
+                }
                 <WorkThrough
                     iconpackage = {icons}
                     data={flowData}

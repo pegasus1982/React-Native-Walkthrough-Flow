@@ -10,6 +10,7 @@ export default class WorkThrough extends Component{
         super(props);
         this.state = {
             next : 0,
+            finished : false
         }
     }
 
@@ -19,6 +20,10 @@ export default class WorkThrough extends Component{
 
         if(parseInt(current) == (screens.length - 1) && parseInt(p) == 0)
         {
+            this.setState({
+                next : p,
+                finished : true
+            })
             this.props.onFinished();
         }
         else{
@@ -39,31 +44,37 @@ export default class WorkThrough extends Component{
 
         const { iconpackage } = this.props;
 
-        const { next } = this.state;
+        const { finished } = this.state;
+        let CarouselComponent;
+        if(!finished)
+            CarouselComponent = (
+                <Carousel
+                    style={styles.carousel}
+                    bullets = {true}
+                    autoplay = { false }
+                    // onAnimateNextPage={this._onAnimNextPage}
+                    onPageBeingChanged={this._onAnimNextPage}
+                    >
+                    {
+                        screens.map((item,i)=>{
+                            return(
+                                <FlowItem
+                                    key={i}
+                                    style={styles.flowItem}
+                                    textColor = {textColorStyle}
+                                    data={item}
+                                    iconpackage = {iconpackage}/>
+                            )
+                        })
+                    }
+                </Carousel>
+            );
         return(
             <View style={[styles.container,backgroundStyle]}>
-            <Text>{next}</Text>
-            <Carousel
-                delay={4000}
-                style={styles.carousel}
-                bullets = {true}
-                // autoplay = { false }
-                onAnimateNextPage={this._onAnimNextPage}
-                >
                 {
-                    screens.map((item,i)=>{
-                        return(
-                            <FlowItem
-                                key={i}
-                                style={styles.flowItem}
-                                textColor = {textColorStyle}
-                                data={item}
-                                iconpackage = {iconpackage}/>
-                        )
-                    })
+                    CarouselComponent
                 }
-            </Carousel>
-        </View>
+            </View>
         )
     }
 }
