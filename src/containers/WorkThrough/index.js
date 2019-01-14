@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Dimensions } from 'react-native';
-import Carousel from 'react-native-looped-carousel';
+import Carousel from './Carousel';
 
 import FlowItem from './FlowItem';
 
@@ -9,25 +9,27 @@ export default class WorkThrough extends Component{
     constructor(props){
         super(props);
         this.state = {
-            next : 0,
-            finished : false
+            current : 0,
+            finished : false,
+            back : ""
         }
     }
 
-    _onAnimNextPage = (p) => {
+    _onAnimNextPage = (next) => {
+        // alert(p);
         const { screens } = this.props.data;
-        let current = this.state.next;
+        let current = this.state.current;
 
-        if(parseInt(current) == (screens.length - 1) && parseInt(p) == 0)
+        if(parseInt(current) == (screens.length - 1) && parseInt(next) == 0)
         {
             this.setState({
-                next : p,
+                current : next,
                 finished : true
             })
             this.props.onFinished();
         }
         else{
-            this.setState({next : p})
+            this.setState({current : next})
         }
     }
     render(){
@@ -52,8 +54,10 @@ export default class WorkThrough extends Component{
                     style={styles.carousel}
                     bullets = {true}
                     autoplay = { false }
+                    currentPage = {0}
                     // onAnimateNextPage={this._onAnimNextPage}
                     onPageBeingChanged={this._onAnimNextPage}
+                    isLooped = {false}
                     >
                     {
                         screens.map((item,i)=>{
@@ -71,9 +75,7 @@ export default class WorkThrough extends Component{
             );
         return(
             <View style={[styles.container,backgroundStyle]}>
-                {
-                    CarouselComponent
-                }
+                {CarouselComponent}
             </View>
         )
     }
